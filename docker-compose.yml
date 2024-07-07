@@ -21,18 +21,9 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/nginx-template.conf:/etc/nginx/templates/nginx-template.conf
       - ./dist:/usr/share/nginx/html
-#    ports:
-#      - "80:80"
-    command:
-      - sh
-      - -c
-      - |
-        envsubst < /etc/nginx/templates/nginx-template.conf > /etc/nginx/conf.d/nginx.conf
-        nginx -g 'daemon off;'
 
 networks:
   nginx_network:
-    name: my-nginx-network
+    name: ${NGINX_NETWORK_NAME}
     external: true
